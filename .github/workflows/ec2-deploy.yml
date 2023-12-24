@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # This line enables the manual run trigger with the "Run workflow" button
 
 env:
   AWS_REGION: ap-south-1
