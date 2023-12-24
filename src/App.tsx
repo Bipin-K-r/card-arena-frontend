@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ErrorBoundary from "./components/ErrorBoundary.tsx";
+import ErrorBoundary from "./components/ErrorBoundary";
 import HomePage from "./pages/HomePage";
 import Judgement from "./pages/Judgement";
 import Show from "./pages/Show";
 import Bluff from "./pages/Bluff";
-import ErrorPage from "./pages/ErrorPage.tsx";
+import ErrorPage from "./pages/ErrorPage";
 
 const App: React.FC = () => {
   return (
