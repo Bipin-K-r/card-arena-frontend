@@ -8,7 +8,8 @@ on:
 env:
   AWS_REGION: ap-south-1
   ECR_REPOSITORY: cardarenafe
-  CONTAINER_NAME: cardarenafe
+  ECR_REGISTRY: 729926669123.dkr.ecr.ap-south-1.amazonaws.com
+  IMAGE_TAG: latest
 
 jobs:
   deploy-image:
@@ -32,9 +33,6 @@ jobs:
   
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        env:
-          ECR_REGISTRY: 729926669123.dkr.ecr.ap-south-1.amazonaws.com
-          IMAGE_TAG: latest
         run: |
           # Build a docker container and
           # push it to ECR so that it can
@@ -42,3 +40,11 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Deploy to EC2
+        id: deploy-ec2
+        run: |
+          aws ecr get-login-password | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
+          sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          sudo docker-compose -f fe-docker-compose.yml down --remove-orphans
+          sudo docker-compose -f fe-docker-compose.yml up -d
