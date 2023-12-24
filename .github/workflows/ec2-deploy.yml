@@ -10,6 +10,8 @@ env:
   ECR_REPOSITORY: cardarenafe
   ECR_REGISTRY: 729926669123.dkr.ecr.ap-south-1.amazonaws.com
   IMAGE_TAG: latest
+  EC2_USER: ec2-user
+  EC2_IP: 51.20.94.108
 
 jobs:
   deploy-image:
@@ -44,7 +46,9 @@ jobs:
       - name: Deploy to EC2
         id: deploy-ec2
         run: |
-          aws ecr get-login-password | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
-          sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          sudo docker-compose -f /home/ec2-user/fe-docker-compose.yml down --remove-orphans
-          sudo docker-compose -f /home/ec2-user/fe-docker-compose.yml up -d
+          echo "${{ secrets.EC2_PEM_FILE }}" > ec2-key.pem
+          chmod 600 your-ec2-key.pem
+          ssh -o StrictHostKeyChecking=no -i ec2-key.pem $EC2_USER@$EC2_IP "aws ecr get-login-password | sudo docker login --username AWS --password-stdin $ECR_REGISTRY && \
+            sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG && \
+            sudo docker-compose -f /home/ec2-user/fe-docker-compose.yml down --remove-orphans && \
+            sudo docker-compose -f /home/ec2-user/fe-docker-compose.yml up -d"
