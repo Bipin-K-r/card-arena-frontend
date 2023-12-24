@@ -46,5 +46,5 @@ jobs:
         run: |
           aws ecr get-login-password | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
           sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          sudo docker-compose -f fe-docker-compose.yml down --remove-orphans
-          sudo docker-compose -f fe-docker-compose.yml up -d
+          sudo docker-compose -f /home/ec2-user/fe-docker-compose.yml down --remove-orphans
+          sudo docker-compose -f /home/ec2-user/fe-docker-compose.yml up -d
