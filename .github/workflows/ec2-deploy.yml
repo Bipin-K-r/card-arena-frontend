@@ -16,9 +16,7 @@ env:
 jobs:
   deploy-image:
     runs-on: ubuntu-latest
-
     steps:
-  
       - name: Checkout
         uses: actions/checkout@v3
   
@@ -36,9 +34,6 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
@@ -47,7 +42,7 @@ jobs:
         id: deploy-ec2
         run: |
           echo "${{ secrets.EC2_PEM_FILE }}" > ec2-key.pem
-          chmod 600 your-ec2-key.pem
+          chmod 600 ec2-key.pem
           ssh -o StrictHostKeyChecking=no -i ec2-key.pem $EC2_USER@$EC2_IP "aws ecr get-login-password | sudo docker login --username AWS --password-stdin $ECR_REGISTRY && \
             sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG && \
             sudo docker-compose -f /home/ec2-user/fe-docker-compose.yml down --remove-orphans && \
