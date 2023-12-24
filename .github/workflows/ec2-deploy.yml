@@ -35,13 +35,14 @@ jobs:
         id: build-image
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Deploy to EC2
         id: deploy-ec2
         run: |
-          echo "${{ secrets.EC2_PEM_FILE }}" > ec2-key.pem
+          echo "${{ secrets.EC2_PEM_FILE }}" | base64 -d > ec2-key.pem
           chmod 600 ec2-key.pem
           ssh -o StrictHostKeyChecking=no -i ec2-key.pem $EC2_USER@$EC2_IP "aws ecr get-login-password | sudo docker login --username AWS --password-stdin $ECR_REGISTRY && \
             sudo docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG && \
