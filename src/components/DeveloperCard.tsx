@@ -5,6 +5,7 @@ interface DeveloperCardProps {
   role: string;
   imageUrl: string;
   linkedinUrl: string;
+  githubUrl: string; // Add GitHub URL property
 }
 
 const DeveloperCard: React.FC<DeveloperCardProps> = ({
@@ -12,6 +13,7 @@ const DeveloperCard: React.FC<DeveloperCardProps> = ({
   role,
   imageUrl,
   linkedinUrl,
+  githubUrl,
 }) => {
   return (
     <li className="flex flex-col items-center">
@@ -22,12 +24,16 @@ const DeveloperCard: React.FC<DeveloperCardProps> = ({
         {linkedinUrl && (
           <li>
             <a href={linkedinUrl} className="text-gray-400 hover:text-gray-500">
-            <span className="sr-only">LinkedIn</span>
-            <img
-              src={'./linkedin.svg'}
-              alt="LinkedIn"
-              className="h-5 w-5"
-            />
+              <span className="sr-only">LinkedIn</span>
+              <img src={'./linkedin.svg'} alt="LinkedIn" className="h-5 w-5" />
+            </a>
+          </li>
+        )}
+        {githubUrl && (
+          <li>
+            <a href={githubUrl} className="text-gray-400 hover:text-gray-500">
+              <span className="sr-only">GitHub</span>
+              <img src={'./github.svg'} alt="GitHub" className="h-5 w-5" />
             </a>
           </li>
         )}

@@ -19,18 +19,21 @@ const HomePage: React.FC = () => {
       role: "",
       imageUrl: "/bipin.png",
       linkedinUrl: "https://www.linkedin.com/in/bipin-k/",
+      githubUrl:'https://github.com/Bipin-K-r'
     },
     {
       name: "Yogi",
       role: "",
       imageUrl: "/yogi.png",
       linkedinUrl: "https://www.linkedin.com/in/yogeshyadaviitg/",
+      githubUrl:'https://github.com/yogeshknp'
     },
     {
       name: "Deva",
       role: "",
       imageUrl: "/deva.png",
       linkedinUrl: "https://www.linkedin.com/in/dtaneja123/",
+      githubUrl:'https://github.com/devashishTaneja'
     },
   ];
 
