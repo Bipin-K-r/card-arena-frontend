@@ -13,10 +13,25 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const developers = [
-    { name: "Bipin", img: "url_to_image_1", linkedIn: "https://www.linkedin.com/in/bipin-k/" },
-    { name: "Yogi", img: "url_to_image_2", linkedIn: "https://www.linkedin.com/in/yogeshyadaviitg/" },
-    { name: "Deva", img: "url_to_image_3", linkedIn: "https://www.linkedin.com/in/dtaneja123/" },
+  const devlopers = [
+    {
+      name: "Bipin",
+      role: "",
+      imageUrl: "/bipin.png",
+      linkedinUrl: "https://www.linkedin.com/in/bipin-k/",
+    },
+    {
+      name: "Yogi",
+      role: "",
+      imageUrl: "/yogi.png",
+      linkedinUrl: "https://www.linkedin.com/in/yogeshyadaviitg/",
+    },
+    {
+      name: "Deva",
+      role: "",
+      imageUrl: "/deva.png",
+      linkedinUrl: "https://www.linkedin.com/in/dtaneja123/",
+    },
   ];
 
   return (
@@ -32,11 +47,25 @@ const HomePage: React.FC = () => {
           </div>
         ))}
       </div>
-      
-      <div className="developers-container flex justify-center items-center flex-wrap gap-4">
-        {developers.map(dev => (
-          <DeveloperCard key={dev.name} name={dev.name} img={dev.img} linkedIn={dev.linkedIn} />
-        ))}
+
+      <div className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:mx-0">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Team</h2>
+            {/* <p className="mt-6 text-lg leading-8 text-gray-600">
+              We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the
+              best results for our clients.
+            </p> */}
+          </div>
+          <ul
+            role="list"
+            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+          >
+            {devlopers.map((person) => (
+              <DeveloperCard key={person.name} {...person} />
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );

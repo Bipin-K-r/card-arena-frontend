@@ -2,17 +2,37 @@ import React from 'react';
 
 interface DeveloperCardProps {
   name: string;
-  img: string;
-  linkedIn: string;
+  role: string;
+  imageUrl: string;
+  linkedinUrl: string;
 }
 
-const DeveloperCard: React.FC<DeveloperCardProps> = ({ name, img, linkedIn }) => {
+const DeveloperCard: React.FC<DeveloperCardProps> = ({
+  name,
+  role,
+  imageUrl,
+  linkedinUrl,
+}) => {
   return (
-    <div className="developer-card">
-      <img src={img} alt={name} className="developer-image" />
-      <div>{name}</div>
-      <a href={linkedIn} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    </div>
+    <li className="flex flex-col items-center">
+      <img className="aspect-[3/2] w-full rounded-2xl object-cover" src={imageUrl} alt={name} />
+      <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{name}</h3>
+      <p className="text-base leading-7 text-gray-600">{role}</p>
+      <ul role="list" className="mt-6 flex gap-x-6">
+        {linkedinUrl && (
+          <li>
+            <a href={linkedinUrl} className="text-gray-400 hover:text-gray-500">
+            <span className="sr-only">LinkedIn</span>
+            <img
+              src={'./linkedin.svg'}
+              alt="LinkedIn"
+              className="h-5 w-5"
+            />
+            </a>
+          </li>
+        )}
+      </ul>
+    </li>
   );
 };
 
