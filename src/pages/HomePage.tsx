@@ -13,64 +13,65 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const devlopers = [
+  const developers = [
     {
       name: "Bipin",
       role: "",
       imageUrl: "/bipin.png",
       linkedinUrl: "https://www.linkedin.com/in/bipin-k/",
-      githubUrl:'https://github.com/Bipin-K-r'
+      githubUrl: "https://github.com/Bipin-K-r",
     },
     {
       name: "Yogi",
       role: "",
       imageUrl: "/yogi.png",
       linkedinUrl: "https://www.linkedin.com/in/yogeshyadaviitg/",
-      githubUrl:'https://github.com/yogeshknp'
+      githubUrl: "https://github.com/yogeshknp",
     },
     {
       name: "Deva",
       role: "",
       imageUrl: "/deva.png",
       linkedinUrl: "https://www.linkedin.com/in/dtaneja123/",
-      githubUrl:'https://github.com/devashishTaneja'
+      githubUrl: "https://github.com/devashishTaneja",
     },
   ];
 
   return (
-    <>
-      <div className="flex justify-center items-center flex-wrap gap-4 p-4">
+    <div className="flex flex-col justify-between min-h-screen">
+      {" "}
+      {/* Ensure full height of the viewport */}
+      {/* Game Tiles - Increased Size */}
+      <div className="flex justify-center items-center flex-wrap gap-6 p-6">
         {["Judgement", "Poker", "Show", "Bluff"].map((game) => (
           <div
             key={game}
-            className="w-40 h-40 flex justify-center items-center bg-white text-black border border-gray-300 rounded shadow cursor-pointer"
+            className="w-48 h-48 flex justify-center items-center bg-white text-black border border-gray-300 rounded shadow cursor-pointer" // Increased size
             onClick={() => handleTileClick(game)}
           >
             {game}
           </div>
         ))}
       </div>
-
-      <div className="bg-white py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Team</h2>
-            {/* <p className="mt-6 text-lg leading-8 text-gray-600">
-              We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the
-              best results for our clients.
-            </p> */}
-          </div>
+      {/* "Our Team" Section at Bottom */}
+      <div className="bg-white bg-opacity-50 py-12 sm:py-16">
+        <div className="mx-auto px-4 lg:px-6">
+          <h2 className="text-3xl font-bold tracking-tight text-black sm:text-5xl md:text-6xl text-center shadow-lg">
+            Our Team
+          </h2>
           <ul
             role="list"
-            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+            className="mx-auto mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-3 max-w-4xl"
           >
-            {devlopers.map((person) => (
-              <DeveloperCard key={person.name} {...person} />
+            {developers.map((person) => (
+              <li key={person.name} className="developer-card flex-1 min-w-0">
+                <DeveloperCard {...person} />
+              </li>
             ))}
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

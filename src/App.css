@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.developers-section {
+  background-color: #fff; /* Solid white background */
+}
+
+
+.developer-card {
+  background-color: white; 
+  
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: adds depth */
+}
+
+body {
+  background-image: url('./wall.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/*
+body {
+  background-color: #fafafa; 
+  background-image: 
+    radial-gradient(circle at 20% 35%, #ffdfdf 2%, transparent 0),
+    radial-gradient(circle at 80% 75%, #ffdfdf 2%, transparent 0);
+  background-size: 10px 10px;
+  color: #333333; 
+  font-family: 'Arial', sans-serif;
+}
+
+.app-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px; 
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 30px auto; 
+  max-width: 800px; 
+   
+}
+*/
+
+
