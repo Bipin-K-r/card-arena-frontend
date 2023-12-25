@@ -7,6 +7,7 @@ import Judgement from "./pages/Judgement";
 import Show from "./pages/Show";
 import Bluff from "./pages/Bluff";
 import ErrorPage from "./pages/ErrorPage";
+import GameTable from "./pages/GameTable";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
             <Route path="/judgement" element={<Judgement />} />
             <Route path="/show" element={<Show />} />
             <Route path="/bluff" element={<Bluff />} />
+            <Route path="/GameTable" element={<GameTable />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </ErrorBoundary>

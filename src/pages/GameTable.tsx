@@ -1,19 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-interface GameTablePageProps {
-  gameToken: string;
-}
+const GameTable: React.FC = () => {
+  const location = useLocation();
+  const token = location.state?.token;
 
-const GameTablePage: React.FC<GameTablePageProps> = ({ gameToken }) => {
   return (
-    <div className="game-table-page">
-      <div className="game-room-header">Game Room: {gameToken}</div>
-      <div className="poker-table">
-        {/* Chairs and table layout */}
-      </div>
-      {/* Other game page content */}
+    <div>
+      <div className="text-center">Game Room: {token}</div>
+      {/* Rest of the game table layout */}
     </div>
   );
 };
 
-export default GameTablePage;
+export default GameTable;

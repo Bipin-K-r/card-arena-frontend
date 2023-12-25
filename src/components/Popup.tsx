@@ -1,3 +1,4 @@
+// Popup.tsx
 import React from 'react';
 
 interface PopupProps {
@@ -10,21 +11,18 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onCreateGame }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-auto bg-smoke-light flex">
-      <div className="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg">
-        <div>
-          <button
-            className="absolute top-0 right-0 mt-4 mr-4"
-            onClick={onClose}
-          >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-5 rounded-lg shadow-lg max-w-sm w-full">
+        <div className="text-right">
+          <button onClick={onClose} className="text-black hover:text-gray-700">
             Close
           </button>
         </div>
-        <div className="text-center">
-          <h1 className="text-lg">Create a Game Room</h1>
+        <div className="text-center mt-4">
+          <h2 className="text-xl font-bold mb-4">Create a Game Room</h2>
           <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
             onClick={onCreateGame}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
           >
             Create Game
           </button>

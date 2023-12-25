@@ -1,39 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Popup from '../components/Popup';
 
 
 const Judgement: React.FC = () => {
-  const [isPopupOpen, setPopupOpen] = useState(false);
-  const [gameToken, setGameToken] = useState<string>('');
+  const [isPopupOpen, setPopupOpen] = useState(true); // Popup open by default
+  const navigate = useNavigate();
 
   const handleCreateGame = async () => {
-    // Call the backend to create a game and retrieve a token
-    // For demonstration, we're using a static string as the token
-    const token = 'token-from-backend'; // Replace with actual token from backend
-    setGameToken(token);
-    setPopupOpen(false);
+    try {
+      const token = 'token-from-backend'; // Replace with actual backend call
+      navigate('/GameTable', { state: { token } }); // Navigate to GameTable with token
+    } catch (error) {
+      console.error('Error creating game:', error);
+    }
   };
 
+  useEffect(() => {
+    if (!isPopupOpen) {
+      navigate('/'); // Navigate back to homepage when popup is closed
+    }
+  }, [isPopupOpen, navigate]);
+
   return (
-    <div className="judgement-page">
-      {!gameToken && (
-        <button
-          className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
-          onClick={() => setPopupOpen(true)}
-        >
-          Create Game
-        </button>
-      )}
-
-      {gameToken && <div className="game-room mt-4">Game Room: {gameToken}</div>}
-
-      <Popup
-        isOpen={isPopupOpen}
-        onClose={() => setPopupOpen(false)}
-        onCreateGame={handleCreateGame}
-      />
-      {/* Rest of your Judgement game page content */}
-    </div>
+    <Popup
+      isOpen={isPopupOpen}
+      onClose={() => setPopupOpen(false)}
+      onCreateGame={handleCreateGame}
+    />
   );
 };
 
