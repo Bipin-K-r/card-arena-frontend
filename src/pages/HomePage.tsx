@@ -54,11 +54,14 @@ const HomePage: React.FC = () => {
         ))}
       </div>
       {/* "Our Team" Section at Bottom */}
-      <div className="bg-white bg-opacity-50 py-12 sm:py-16">
+      <div className="bg-gray bg-opacity-50 py-12 sm:py-16">
         <div className="mx-auto px-4 lg:px-6">
-          <h2 className="text-3xl font-bold tracking-tight text-black sm:text-5xl md:text-6xl text-center shadow-lg">
-            Our Team
-          </h2>
+          <div className="flex justify-center items-center">
+            <div className="inline-block bg-gray-200 shadow-lg px-4 py-2 rounded">
+              <h2 className="text-3xl font-bold text-black sm:text-5xl md:text-6xl text-center">Our Team</h2>
+            </div>
+          </div>
+
           <ul
             role="list"
             className="mx-auto mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-3 max-w-4xl"
