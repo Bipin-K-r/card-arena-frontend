@@ -15,7 +15,7 @@ const App: React.FC = () => {
       <div className="App">
         <ErrorBoundary>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage/>} />
             <Route path="/judgement" element={<Judgement />} />
             <Route path="/show" element={<Show />} />
             <Route path="/bluff" element={<Bluff />} />

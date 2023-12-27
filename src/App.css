@@ -18,11 +18,22 @@
 }
 
 body {
-  background-image: url('./wall.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+body::after {
+  content: '';
+  background: url('./wall.png');
+  opacity: 0.7; /* Adjust this value to change the opacity */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+
 
 /*
 body {

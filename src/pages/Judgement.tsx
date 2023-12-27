@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Popup from '../components/Popup';
+import JoinGame from '../services/socket';
 
 
 const Judgement: React.FC = () => {
@@ -9,8 +10,13 @@ const Judgement: React.FC = () => {
 
   const handleCreateGame = async () => {
     try {
-      const token = 'token-from-backend'; // Replace with actual backend call
-      navigate('/GameTable', { state: { token } }); // Navigate to GameTable with token
+      const gameId = JoinGame();
+      if (gameId === undefined) {
+        // Show error message popup on screen
+        console.error('Error creating game: gameId is undefined');
+        return;
+      }
+      navigate('/GameTable/' + gameId); // Navigate to GameTable with token
     } catch (error) {
       console.error('Error creating game:', error);
     }
@@ -30,5 +36,7 @@ const Judgement: React.FC = () => {
     />
   );
 };
+
+
 
 export default Judgement;
