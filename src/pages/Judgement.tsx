@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import Popup from '../components/Popup';
 import JoinGame from '../services/socket';
 
-
 const Judgement: React.FC = () => {
   const [isPopupOpen, setPopupOpen] = useState(true); // Popup open by default
+  const [inputValue, setInputValue] = useState(''); // State variable to hold input value
   const navigate = useNavigate();
 
-  const handleCreateGame = async () => {
+  const handleCreateGame = async (name?: string) => {
     try {
-      const gameId = JoinGame();
+      const gameId = JoinGame(name); // Pass input value to JoinGame method
       if (gameId === undefined) {
-        // Show error message popup on screen
         console.error('Error creating game: gameId is undefined');
         return;
       }
@@ -36,7 +35,5 @@ const Judgement: React.FC = () => {
     />
   );
 };
-
-
 
 export default Judgement;

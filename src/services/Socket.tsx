@@ -1,22 +1,17 @@
-import io from 'socket.io-client';
+import io, {connect} from 'socket.io-client';
 
-
-// socket.on('disconnect', () => {
-//     console.log('Disconnected from socket.io server');
-// });
+const socket = io.connect('http://localhost:8080/', { path: '/api/socket.io' });
 
 // Create an event called 'joinRoom' and emit it to the server
-const JoinGame = (roomId?: string) => {
-    const socket = io('https://cardarena.iugaming.com/', { path: '/api/socket.io'});
-
-    if (!roomId) {
-        roomId = generateHexId(8);
+const JoinGame = (playerName?: string, gameId?: string) => {
+    if (!gameId) {
+        gameId = generateHexId(8);
     }
-    socket.on('connect', () => {
-        console.log('Connected to socket.io server');
-        socket.emit('joinGame', { roomId });
-        return roomId;
+    socket.emit('joinGame', {
+        playerName: playerName,
+        gameId: gameId
     });
+    return gameId;
 };
 
 const generateHexId = (length: number) => {
