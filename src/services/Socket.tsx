@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-export const socket = io('http://localhost:8080/', { path: '/api/socket.io' });;
+export const socket = io('https://cardarena.iugaming.com/', { path: '/api/socket.io' });;
 
 // Create an event called 'joinRoom' and emit it to the server
 const JoinGame = (playerName?: string, gameId?: string) => {
