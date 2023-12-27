@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 interface PopupProps {
   isOpen: boolean;
   onClose: () => void;
-  onCreateGame: (name: string) => Promise<void>;
+  onJoinGame: (name: string) => Promise<void>;
 }
 
-const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onCreateGame }) => {
+const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onJoinGame }) => {
   const [name, setName] = useState('');
   if (!isOpen) return null;
 
-  const handleCreateGame = async () => {
-    await onCreateGame(name);
+  const handleJoinGame = async () => {
+    await onJoinGame(name);
   };
 
   return (
@@ -23,7 +23,7 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onCreateGame }) => {
           </button>
         </div>
         <div className="text-center mt-4">
-          <h2 className="text-xl font-bold mb-4">Create a Game Room</h2>
+          <h2 className="text-xl font-bold mb-4">Join Game Room</h2>
           {/* Get player name from user */}
           <input
             className="border border-gray-400 rounded px-4 py-2 mb-4"
@@ -33,9 +33,9 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onCreateGame }) => {
           ></input>
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-            onClick={handleCreateGame}
+            onClick={handleJoinGame}
           >
-            Create Game
+            Join Game
           </button>
         </div>
       </div>
