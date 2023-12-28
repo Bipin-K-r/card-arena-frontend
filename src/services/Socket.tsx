@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-export const socket = io('http://localhost:8080/', { path: '/api/socket.io' });
+export const socket = io('http://localhost:8080/', { path: '/api/socket.io', transports: ['websocket'] });
 
 const JoinGame = (playerName?: string, gameId?: string) => {
     if (!gameId) {
