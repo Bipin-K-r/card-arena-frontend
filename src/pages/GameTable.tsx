@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { socket } from '../services/socket';
+import { useNavigate, useParams } from 'react-router-dom';
+import { socket } from '../services/Socket';
 
 interface Player {
   id: string;
@@ -9,9 +9,9 @@ interface Player {
 
 const GameTable: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
-  const history = useHistory();
 
   const shouldRedirect = sessionStorage.getItem('sessionId') === null;
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Listen to the stateUpdate event
@@ -29,11 +29,19 @@ const GameTable: React.FC = () => {
     };
   }, []);
 
+  const { gameId } = useParams();
+
   useEffect(() => {
     if (shouldRedirect) {
-      history.push(`/game/:gameid/join`);
+      navigate(`/game/${gameId}/join`);
+    } else {
+      socket.emit('joinGame', {
+        playerName: sessionStorage.getItem('playerName'),
+        gameId: gameId,
+        playerSessionId: sessionStorage.getItem('sessionId')
+      });
     }
-  }, [shouldRedirect, history]);
+  }, [shouldRedirect, navigate, gameId]);
 
   return (
     <div className="relative w-full h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -42,6 +50,13 @@ const GameTable: React.FC = () => {
           {player.name}
         </div>
       ))}
+      {/* 
+      Todo: Start Game button for the first user
+      
+      socker.emit('startGame', {})
+
+      */}
+      
     </div>
   );
 };

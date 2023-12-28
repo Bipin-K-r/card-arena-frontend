@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Popup from '../components/JoinGamePopup';
-import JoinGame from '../services/socket';
+import JoinGame from '../services/Socket';
 
 const JoinGameTable: React.FC = () => {
   const [isPopupOpen, setPopupOpen] = useState(true); // Popup open by default

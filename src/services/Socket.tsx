@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-export const socket = io('https://cardarena.iugaming.com/', { path: '/api/socket.io' });
+export const socket = io('http://localhost:8080/', { path: '/api/socket.io' });
 
 const JoinGame = (playerName?: string, gameId?: string) => {
     if (!gameId) {
@@ -8,11 +8,14 @@ const JoinGame = (playerName?: string, gameId?: string) => {
     }
     const sessionId = generateHexId(16); // Generate sessionId
     sessionStorage.setItem('sessionId', sessionId); // Store sessionId in session storage
-    socket.emit('joinGame', {
-        playerName: playerName,
-        gameId: gameId,
-        playerSessionId: sessionId
-    });
+    sessionStorage.setItem('playerName', playerName || ''); // Store playerName in session storage
+    // Todo: Review with @Yogesh
+    // Moved this to Join Game Table to run it on refresh as well
+    // socket.emit('joinGame', {
+    //     playerName: playerName,
+    //     gameId: gameId,
+    //     playerSessionId: sessionId
+    // });
     return gameId;
 };
 
