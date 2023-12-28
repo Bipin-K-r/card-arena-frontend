@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { socket } from '../services/Socket';
+import socket from '../services/Socket';
 
 interface Player {
   id: string;
