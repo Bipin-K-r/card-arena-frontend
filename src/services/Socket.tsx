@@ -1,15 +1,17 @@
 import io from 'socket.io-client';
 
-export const socket = io('https://cardarena.iugaming.com/', { path: '/api/socket.io' });;
+export const socket = io('https://cardarena.iugaming.com/', { path: '/api/socket.io' });
 
-// Create an event called 'joinRoom' and emit it to the server
 const JoinGame = (playerName?: string, gameId?: string) => {
     if (!gameId) {
         gameId = generateHexId(8);
     }
+    const sessionId = generateHexId(16); // Generate sessionId
+    sessionStorage.setItem('sessionId', sessionId); // Store sessionId in session storage
     socket.emit('joinGame', {
         playerName: playerName,
-        gameId: gameId
+        gameId: gameId,
+        playerSessionId: sessionId
     });
     return gameId;
 };

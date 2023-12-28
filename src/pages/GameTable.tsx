@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { socket } from '../services/Socket';
+import { useHistory } from 'react-router-dom';
+import { socket } from '../services/socket';
 
 interface Player {
   id: string;
@@ -8,6 +9,9 @@ interface Player {
 
 const GameTable: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
+  const history = useHistory();
+
+  const shouldRedirect = sessionStorage.getItem('sessionId') === null;
 
   useEffect(() => {
     // Listen to the stateUpdate event
@@ -24,6 +28,12 @@ const GameTable: React.FC = () => {
       socket.off('stateUpdate');
     };
   }, []);
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      history.push(`/game/:gameid/join`);
+    }
+  }, [shouldRedirect, history]);
 
   return (
     <div className="relative w-full h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
