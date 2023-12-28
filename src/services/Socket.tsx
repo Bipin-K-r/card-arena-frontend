@@ -1,6 +1,9 @@
 import io from 'socket.io-client';
 
-export const socket = io(process.env.NODE_ENV === 'production' ? 'https://cardarena.iugaming.com' : 'http://localhost:8080/', { path: '/api/socket.io', transports: ['websocket'] });
+// This is not working in production
+// export const socket = io(process.env.NODE_ENV === 'production' ? 'https://cardarena.iugaming.com' : 'http://localhost:8080/', { path: '/api/socket.io', transports: ['websocket'] });
+const socket = io('https://cardarena.iugaming.com', { path: '/api/socket.io', transports: ['websocket'] });
+
 const JoinGame = (playerName?: string, gameId?: string) => {
     if (!gameId) {
         gameId = generateHexId(8);
