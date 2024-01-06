@@ -16,7 +16,8 @@ interface Card {
 
 enum GameStatus {
   WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',
-  STARTED = 'STARTED',
+  STARTING_SET = 'STARTING_SET',
+  CALLING_HANDS = 'CALLING_HANDS',
   PLAYING = 'PLAYING',
   FINISHED = 'FINISHED'
 }
@@ -46,7 +47,12 @@ const Player: React.FC<{ player: Player, idx: number, totalPlayer: number }> = (
         <div className="mt-2">
           {player.cards.map((card, index) => (
             <div key={index} className="text-gray-600">
-              {player.sessionId === sessionStorage.getItem('sessionId') ? `${card.rank} of ${card.suit}` : 'Unknown'}
+              {player.sessionId === sessionStorage.getItem('sessionId') ? 
+                  <img
+                  src={`/cards/${card.rank}_${card.suit}.png`}
+                  alt={`${card.rank} of ${card.suit}`}
+                  style={{ height: '100px', objectFit: 'contain' }}
+                /> : 'Unknown'}
             </div>
           ))}
         </div>
