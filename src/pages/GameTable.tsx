@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { socket } from '../services/Socket';
+import { socket, StartGame } from '../services/Socket';
 
 interface Player {
   id: string;
   name: string;
+  cards: Card[];
+  sessionId: string;
+}
+
+interface Card {
+  suit: string;
+  rank: string;
+}
+
+enum GameStatus {
+  WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',
+  STARTED = 'STARTED',
+  PLAYING = 'PLAYING',
+  FINISHED = 'FINISHED'
 }
 
 const GameTable: React.FC = () => {
   const [players, setPlayers] = useState<Player[]>([]);
+  const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.WAITING_FOR_PLAYERS);
 
   const shouldRedirect = sessionStorage.getItem('sessionId') === null;
   const navigate = useNavigate();
@@ -20,6 +35,7 @@ const GameTable: React.FC = () => {
       console.log('Players:', data.players);
       if (data) {
         setPlayers(JSON.parse(data).players);
+        setGameStatus(JSON.parse(data).gameStatus);
       }
     });
 
@@ -43,20 +59,46 @@ const GameTable: React.FC = () => {
     }
   }, [shouldRedirect, navigate, gameId]);
 
-  return (
-    <div className="relative w-full h-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {players.map((player) => (
-        <div key={player.id} className="w-full h-full bg-gray-400">
-          {player.name}
-        </div>
-      ))}
-      {/* 
-      Todo: Start Game button for the first user
-      
-      socker.emit('startGame', {})
+  const calculatePosition = (index: number, totalPlayers: number) => {
+    const radiusX = window.innerWidth * 0.4; // Adjust the X radius as needed (40% of the screen width)
+    const radiusY = window.innerHeight * 0.3; // Adjust the Y radius as needed (30% of the screen height)
+    const angle = (2 * Math.PI * index) / totalPlayers;
+    const x = radiusX * Math.cos(angle);
+    const y = radiusY * Math.sin(angle);
+    return { x, y };
+  };
 
-      */}
-      
+  return (
+    <div className="relative w-full h-screen flex justify-center items-center">
+      <div className="w-96 h-48 bg-gray-400 rounded-full flex flex-col justify-center items-center">
+        {players.map((player, index) => (
+          <div
+            key={player.id}
+            className="absolute flex justify-center items-center"
+            style={{
+              top: '50%',
+              left: '50%',
+              transform: `translate(${calculatePosition(index, players.length).x}px, ${calculatePosition(index, players.length).y}px)`,
+            }}
+          >
+            <div className="bg-white rounded-full p-2 shadow-md">
+              <span className="text-gray-800">{player.name}</span>
+              <div className="mt-2">
+                {player.cards.map((card, index) => (
+                  <div key={index} className="text-gray-600">
+                    {player.sessionId === sessionStorage.getItem('sessionId') ? `${card.rank} of ${card.suit}` : 'Unknown'}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+        {gameStatus === GameStatus.WAITING_FOR_PLAYERS && (
+          <button className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => StartGame(gameId, sessionStorage.getItem('sessionId') || '')}>
+            Start Game
+          </button>
+        )}
+      </div>
     </div>
   );
 };

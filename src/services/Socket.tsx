@@ -2,7 +2,9 @@ import io from 'socket.io-client';
 
 // This is not working in production
 // export const socket = io(process.env.NODE_ENV === 'production' ? 'https://cardarena.iugaming.com' : 'http://localhost:8080/', { path: '/api/socket.io', transports: ['websocket'] });
-export const socket = io('https://cardarena.iugaming.com', { path: '/api/socket.io', transports: ['websocket'] });
+// export const socket = io('https://cardarena.iugaming.com', { path: '/api/socket.io', transports: ['websocket'] });
+export const socket = io('http://localhost:8080', { path: '/api/socket.io', transports: ['websocket'] });
+
 
 const JoinGame = (playerName?: string, gameId?: string) => {
     if (!gameId) {
@@ -21,6 +23,14 @@ const JoinGame = (playerName?: string, gameId?: string) => {
     return gameId;
 };
 
+
+const StartGame = (gameId?: string, sessionId?: string) => {
+    socket.emit('startGame', {
+        gameId: gameId,
+        playerSessionId: sessionId
+    });
+};
+
 const generateHexId = (length: number) => {
     const characters = '0123456789abcdef';
     let hexId = '';
@@ -30,4 +40,4 @@ const generateHexId = (length: number) => {
     return hexId;
 };
 
-export default JoinGame;
+export { JoinGame, StartGame };
