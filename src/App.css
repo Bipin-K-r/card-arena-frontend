@@ -33,28 +33,3 @@ body::after {
   position: absolute;
   z-index: -1;   
 }
-
-
-/*
-body {
-  background-color: #fafafa; 
-  background-image: 
-    radial-gradient(circle at 20% 35%, #ffdfdf 2%, transparent 0),
-    radial-gradient(circle at 80% 75%, #ffdfdf 2%, transparent 0);
-  background-size: 10px 10px;
-  color: #333333; 
-  font-family: 'Arial', sans-serif;
-}
-
-.app-container {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 10px; 
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 30px auto; 
-  max-width: 800px; 
-   
-}
-*/
-
-
