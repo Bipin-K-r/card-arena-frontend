@@ -14,7 +14,7 @@ interface Player {
 
 const Player: React.FC<{ player: Player, idx: number, totalPlayer: number }> = ({ player, idx, totalPlayer }) => {
 	const calculatePosition = (index: number, totalPlayers: number) => {
-		const radiusX = window.innerWidth * 0.4; // Adjust the X radius as needed (40% of the screen width)
+		const radiusX = window.innerWidth * 0.3; // Adjust the X radius as needed (40% of the screen width)
 		const radiusY = window.innerHeight * 0.3; // Adjust the Y radius as needed (30% of the screen height)
 		const angle = (2 * Math.PI * index) / totalPlayers;
 		const x = radiusX * Math.cos(angle);

@@ -1,0 +1,8 @@
+.table{
+    background-color: #e3924b;
+    border-radius: 99999px; /* Increased value for a bigger rounded shape */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

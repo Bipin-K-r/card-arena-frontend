@@ -24,7 +24,6 @@ const Popup: React.FC<PopupProps> = ({ isOpen, onClose, onCreateGame }) => {
         </div>
         <div className="text-center mt-4">
           <h2 className="text-xl font-bold mb-4">Create a Game Room</h2>
-          {/* Get player name from user */}
           <input
             className="border border-gray-400 rounded px-4 py-2 mb-4"
             placeholder="Enter your name"

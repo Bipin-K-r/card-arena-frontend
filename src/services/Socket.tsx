@@ -13,6 +13,7 @@ const JoinGame = (playerName?: string, gameId?: string) => {
     const sessionId = generateHexId(16); // Generate sessionId
     sessionStorage.setItem('sessionId', sessionId); // Store sessionId in session storage
     sessionStorage.setItem('playerName', playerName || ''); // Store playerName in session storage
+    sessionStorage.setItem('gameId', gameId); // Store gameId in session storage
     // Todo: Review with @Yogesh
     // Moved this to Join Game Table to run it on refresh as well
     // socket.emit('joinGame', {
@@ -31,6 +32,14 @@ const StartGame = (gameId?: string, sessionId?: string) => {
     });
 };
 
+const CallHandsGame = (hands?:number) => {
+    socket.emit('callHands', {
+        gameId: sessionStorage.getItem('gameId'),
+        playerSessionId: sessionStorage.getItem('sessionId'),
+        handsCalled: hands
+    });
+};
+
 const generateHexId = (length: number) => {
     const characters = '0123456789abcdef';
     let hexId = '';
@@ -40,4 +49,4 @@ const generateHexId = (length: number) => {
     return hexId;
 };
 
-export { JoinGame, StartGame };
+export { JoinGame, StartGame , CallHandsGame};
