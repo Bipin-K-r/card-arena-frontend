@@ -6,6 +6,7 @@ const CallHands = () => {
   const [hands, setHands] = useState<any>();
   const callHands = async (hands?: number) => {
     try {
+      console.log('Hands called: ', hands);
       CallHandsGame(hands);
     } catch (error) {
       console.error('Error calling hands:', error);

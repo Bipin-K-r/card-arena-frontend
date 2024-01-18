@@ -21,7 +21,9 @@ const Player: React.FC<{ player: Player, idx: number, totalPlayer: number }> = (
 		const y = radiusY * Math.sin(angle);
 		return { x, y };
 	};
-  
+
+	const name = sessionStorage.getItem('playerName') === player.name ? player.name + ' (You)' : player.name;
+	const bgcolor = sessionStorage.getItem('playerName') === player.name ? 'bg-gray-200' : 'bg-white';
 	return (
 		<div
 			key={player.id}
@@ -32,8 +34,8 @@ const Player: React.FC<{ player: Player, idx: number, totalPlayer: number }> = (
 				transform: `translate(${calculatePosition(idx, totalPlayer).x}px, ${calculatePosition(idx, totalPlayer).y}px)`,
 			}}
 		>
-			<div className="bg-white rounded-full p-2 shadow-md">
-				<span className="text-gray-800">{player.name}</span>
+			<div className={bgcolor + " rounded-full p-2 shadow-md"}>
+				<span className="text-gray-800">{name}</span>
 			</div>
 		</div>
 	);

@@ -32,6 +32,13 @@ const StartGame = (gameId?: string, sessionId?: string) => {
     });
 };
 
+const StartNextHand = (gameId?: string, sessionId?: string) => {
+    socket.emit('nextHand', {
+        gameId: gameId,
+        playerSessionId: sessionId
+    });
+};
+
 const CallHandsGame = (hands?:number) => {
     socket.emit('callHands', {
         gameId: sessionStorage.getItem('gameId'),
@@ -39,6 +46,15 @@ const CallHandsGame = (hands?:number) => {
         handsCalled: hands
     });
 };
+
+const PlayCardGame = (card?:any) => {
+    socket.emit('playCard', {
+        gameId: sessionStorage.getItem('gameId'),
+        playerSessionId: sessionStorage.getItem('sessionId'),
+        cardRank: card.rank,
+        cardSuit: card.suit
+    });
+}
 
 const generateHexId = (length: number) => {
     const characters = '0123456789abcdef';
@@ -49,4 +65,4 @@ const generateHexId = (length: number) => {
     return hexId;
 };
 
-export { JoinGame, StartGame , CallHandsGame};
+export { JoinGame, StartGame, CallHandsGame, PlayCardGame, StartNextHand};

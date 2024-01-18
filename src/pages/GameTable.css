@@ -22,3 +22,33 @@
     flex-direction: column;
     margin: 0 20px;
 }
+
+.scorecard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 20px;
+    border-collapse: collapse; /* Add border style */
+    background-color: #f9f9f9; /* Light background for the table */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    table-layout: fixed;
+}
+
+.scorecard th, .scorecard td {
+    border: 2px solid #ccc; /* Making borders slightly thicker and changing color */
+    padding: 8px;
+    text-align: center;
+    width: 140px; /* Setting fixed table layout */
+}
+
+
+.scorecard th {
+    background-color: #e3e3e3; /* Different background for headers */
+    color: #333; /* Darker text for headers */
+}
+
+/* Optional: Adding hover effect for table rows */
+.scorecard tbody tr:hover {
+    background-color: #f1f1f1;
+}
