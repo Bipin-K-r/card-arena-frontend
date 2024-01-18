@@ -8,7 +8,7 @@ const Table = (game : any) => {
     return (
         <div className="table w-1/2 h-96 ">
             {game?.players?.map((player:Player, index:number) => (
-              <Player key={player.id} player={player} idx={index} totalPlayer={totalPlayers} scorecard={scorecard}/>
+              <Player key={player.id} player={player} idx={index} totalPlayer={totalPlayers} scorecard={scorecard} chance={game?.chance===index}/>
             ))}
             {game?.table?.cardsOnDisplay?.map((card:any, index:number) => (
                 <TableCards key={index} card={card} idx={(index + game?.lastRoundWinner)%totalPlayers} totalPlayer={totalPlayers} />

@@ -12,7 +12,7 @@ interface Player {
 	cards: Card[];
 }
 
-const Player: React.FC<{ player: Player, idx: number, totalPlayer: number , scorecard:any}> = ({ player, idx, totalPlayer, scorecard}) => {
+const Player: React.FC<{ player: Player, idx: number, totalPlayer: number, scorecard:any, chance:boolean}> = ({ player, idx, totalPlayer, scorecard,chance}) => {
 	const calculatePosition = (index: number, totalPlayers: number) => {
 		const radiusX = window.innerWidth * 0.3; // Adjust the X radius as needed (40% of the screen width)
 		const radiusY = window.innerHeight * 0.3; // Adjust the Y radius as needed (30% of the screen height)
@@ -23,7 +23,7 @@ const Player: React.FC<{ player: Player, idx: number, totalPlayer: number , scor
 	};
 
 	const name = sessionStorage.getItem('playerName') === player.name ? player.name + ' (You)' : player.name;
-	const bgcolor = sessionStorage.getItem('playerName') === player.name ? 'bg-gray-200' : 'bg-white';
+	const bgcolor = chance ? 'bg-green-200' : sessionStorage.getItem('playerName') === player.name ? 'bg-gray-200' : 'bg-white';
 	return (
 		<div
 			key={player.id}
