@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { json, useNavigate, useParams } from 'react-router-dom';
 import { socket, StartGame, StartNextHand } from '../services/Socket';
 import Cards from '../components/Cards';
 import Button from '../components/Button';
@@ -43,11 +43,10 @@ const GameTable: React.FC = () => {
   }
 
   useEffect(() => {
-    socket.on('stateUpdate', (gameData) => {
+    socket.on('stateUpdate', (gameData:any) => {
       if (gameData) {
-        console.log('Received stateUpdate:', JSON.parse(gameData));
+        console.log('Received stateUpdate:', JSON.parse(gameData),'state: ',JSON.parse(gameData).gameStatus);
         setGame(JSON.parse(gameData));
-        console.log('Game:', game);
       }
     });
 
@@ -60,6 +59,7 @@ const GameTable: React.FC = () => {
     if (shouldRedirect) {
       navigate(`/game/${gameId}/join`);
     } else {
+      console.log('Emiting join game:', gameId);
       socket.emit('joinGame', {
         playerName: sessionStorage.getItem('playerName'),
         gameId: gameId,

@@ -2,8 +2,8 @@ import io from 'socket.io-client';
 
 // This is not working in production
 // export const socket = io(process.env.NODE_ENV === 'production' ? 'https://cardarena.iugaming.com' : 'http://localhost:8080/', { path: '/api/socket.io', transports: ['websocket'] });
-export const socket = io('https://cardarena.iugaming.com', { path: '/api/socket.io', transports: ['websocket'] });
-//export const socket = io('http://localhost:8080', { path: '/api/socket.io', transports: ['websocket'] });
+//export const socket = io('https://cardarena.iugaming.com', { path: '/api/socket.io', transports: ['websocket'] });
+export const socket = io('http://localhost:8080', { path: '/api/socket.io', transports: ['websocket'] });
 
 
 const JoinGame = (playerName?: string, gameId?: string) => {
@@ -30,6 +30,7 @@ const StartGame = (gameId?: string, sessionId?: string) => {
         gameId: gameId,
         playerSessionId: sessionId
     });
+    console.log('Emiting start game:', gameId);
 };
 
 const StartNextHand = (gameId?: string, sessionId?: string) => {
@@ -37,6 +38,7 @@ const StartNextHand = (gameId?: string, sessionId?: string) => {
         gameId: gameId,
         playerSessionId: sessionId
     });
+    console.log('Emiting start next hand:', gameId);
 };
 
 const CallHandsGame = (hands?:number) => {
@@ -45,6 +47,7 @@ const CallHandsGame = (hands?:number) => {
         playerSessionId: sessionStorage.getItem('sessionId'),
         handsCalled: hands
     });
+    console.log('Emiting call hands:', hands);
 };
 
 const PlayCardGame = (card?:any) => {
@@ -54,6 +57,7 @@ const PlayCardGame = (card?:any) => {
         cardRank: card.rank,
         cardSuit: card.suit
     });
+    console.log('Emiting play card:', card);
 }
 
 const generateHexId = (length: number) => {

@@ -12,7 +12,7 @@ interface Player {
 	cards: Card[];
 }
 
-const Player: React.FC<{ player: Player, idx: number, totalPlayer: number }> = ({ player, idx, totalPlayer }) => {
+const Player: React.FC<{ player: Player, idx: number, totalPlayer: number , scorecard:any}> = ({ player, idx, totalPlayer, scorecard}) => {
 	const calculatePosition = (index: number, totalPlayers: number) => {
 		const radiusX = window.innerWidth * 0.3; // Adjust the X radius as needed (40% of the screen width)
 		const radiusY = window.innerHeight * 0.3; // Adjust the Y radius as needed (30% of the screen height)
@@ -36,6 +36,8 @@ const Player: React.FC<{ player: Player, idx: number, totalPlayer: number }> = (
 		>
 			<div className={bgcolor + " rounded-full p-2 shadow-md"}>
 				<span className="text-gray-800">{name}</span>
+				<br />
+				{scorecard!==null && <span className="text-gray-800">C: {scorecard?.handsCalled[idx]}, W: {scorecard?.handsWon[idx]}</span>}
 			</div>
 		</div>
 	);
