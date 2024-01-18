@@ -17,6 +17,14 @@ const Scorecard = (game:any) => {
                         ))}
                     </tr>
                 ))}
+                {game?.totalScores!==null && <tr key={14}>
+                    {game?.players?.map((_:any, index:number) => (
+                        <td key={index}>
+                             {game?.totalScores[index]}
+                        </td>
+                    ))}
+                
+                </tr>}
             </tbody>
         </table>
     );
