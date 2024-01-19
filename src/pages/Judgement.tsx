@@ -27,11 +27,25 @@ const Judgement: React.FC = () => {
   }, [isPopupOpen, navigate]);
 
   return (
-    <Popup
-      isOpen={isPopupOpen}
-      onClose={() => setPopupOpen(false)}
-      onCreateGame={onCreateGame}
-    />
+    <div>
+      <div className="absolute top-0 left-0 w-screen h-screen flex justify-center items-center flex-col" style={{ position: 'relative' }}>
+        <div style={{
+            backgroundImage: "url(/wall.png)",
+            opacity: 0.7,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            zIndex: -1
+        }}></div>
+      </div>
+      <Popup
+        isOpen={isPopupOpen}
+        onClose={() => setPopupOpen(false)}
+        onCreateGame={onCreateGame}
+      />
+    </div>
   );
 };
 

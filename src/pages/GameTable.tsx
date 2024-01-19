@@ -84,32 +84,46 @@ const GameTable: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen flex justify-center items-center flex-col">
-      <div className="absolute top-0 right-0 m-4">{sessionStorage.getItem('playerName')}!</div>
-      <div>{getMessage(game)}</div>
-      {Table(game)}
-      <div>
-        {game?.gameStatus === GameStatus.WAITING_FOR_PLAYERS && game?.ownerId===sessionStorage.getItem('sessionId') && (
-          Button({ onClick: () => StartGame(gameId, sessionStorage.getItem('sessionId') || ''), text: 'Start Game' })
-        )}
-        {game?.gameStatus === GameStatus.DECLARE_WINNER && game?.ownerId===sessionStorage.getItem('sessionId') && (
-          Button({ onClick: () => StartNextHand(gameId, sessionStorage.getItem('sessionId') || ''), text: 'Start Next Round' })
-        )}
+    <div>
+      <div className="absolute top-0 left-0 w-full h-screen flex justify-center items-center flex-col" style={{ position: 'relative' }}>
+        <div style={{
+            backgroundImage: "url(/wall.png)",
+            opacity: 0.5,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            zIndex: -1
+        }}></div>
       </div>
-      <div className='mt-2'> 
-        {Cards(game)}
-        {game?.gameStatus === GameStatus.CALLING_HANDS && game?.players[game?.chance]?.sessionId === sessionStorage.getItem('sessionId') && <CallHands/>}
-        {game?.gameStatus !== GameStatus.WAITING_FOR_PLAYERS && (
-          <div>
-            {
-              <Popup trigger=
-                {<button> Scorecard </button>}
-                  position="right center">
-                      {Scorecard(game)}
-              </Popup>
-            }
-          </div>
-        )}
+      <div className="absolute top-0 left-0 w-full h-screen flex justify-center items-center flex-col">
+        <div className="absolute top-0 right-0 m-4">{sessionStorage.getItem('playerName')}!</div>
+        <div>{getMessage(game)}</div>
+        {Table(game)}
+        <div>
+          {game?.gameStatus === GameStatus.WAITING_FOR_PLAYERS && game?.ownerId===sessionStorage.getItem('sessionId') && (
+            Button({ onClick: () => StartGame(gameId, sessionStorage.getItem('sessionId') || ''), text: 'Start Game' })
+          )}
+          {game?.gameStatus === GameStatus.DECLARE_WINNER && game?.ownerId===sessionStorage.getItem('sessionId') && (
+            Button({ onClick: () => StartNextHand(gameId, sessionStorage.getItem('sessionId') || ''), text: 'Start Next Round' })
+          )}
+        </div>
+        <div className='mt-2'> 
+          {Cards(game)}
+          {game?.gameStatus === GameStatus.CALLING_HANDS && game?.players[game?.chance]?.sessionId === sessionStorage.getItem('sessionId') && <CallHands/>}
+          {game?.gameStatus !== GameStatus.WAITING_FOR_PLAYERS && (
+            <div>
+              {
+                <Popup trigger=
+                  {<button> Scorecard </button>}
+                    position="right center">
+                        {Scorecard(game)}
+                </Popup>
+              }
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
