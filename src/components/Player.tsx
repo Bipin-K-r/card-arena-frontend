@@ -12,7 +12,7 @@ interface Player {
 	cards: Card[];
 }
 
-const Player: React.FC<{ player: Player, idx: number, totalPlayer: number, scorecard:any, chance:boolean}> = ({ player, idx, totalPlayer, scorecard,chance}) => {
+const Player: React.FC<{ player: Player, idx: number, totalPlayer: number, scorecard:any, isChance:boolean, calledIndices:number[]}> = ({ player, idx, totalPlayer, scorecard,isChance,calledIndices}) => {
 	const calculatePosition = (index: number, totalPlayers: number) => {
 		const radiusX = window.innerWidth * 0.3; // Adjust the X radius as needed (40% of the screen width)
 		const radiusY = window.innerHeight * 0.3; // Adjust the Y radius as needed (30% of the screen height)
@@ -21,9 +21,10 @@ const Player: React.FC<{ player: Player, idx: number, totalPlayer: number, score
 		const y = radiusY * Math.sin(angle);
 		return { x, y };
 	};
-
-	const name = sessionStorage.getItem('playerName') === player.name ? player.name + ' (You)' : player.name;
-	const bgcolor = chance ? 'bg-green-200' : sessionStorage.getItem('playerName') === player.name ? 'bg-gray-200' : 'bg-white';
+	const isOwner = sessionStorage.getItem('playerName') === player.name;
+	const isCalled = calledIndices.includes(idx);
+	const name = isOwner ? player.name + ' (You)' : player.name;
+	const bgcolor = isChance ? 'bg-green-200' : isCalled ? 'bg-yellow-200' : 'bg-red-200';
 	return (
 		<div
 			key={player.id}
@@ -37,7 +38,7 @@ const Player: React.FC<{ player: Player, idx: number, totalPlayer: number, score
 			<div className={bgcolor + " rounded-full p-2 shadow-md"}>
 				<span className="text-gray-800">{name}</span>
 				<br />
-				{scorecard!==null && <span className="text-gray-800">C: {scorecard?.handsCalled[idx]}, W: {scorecard?.handsWon[idx]}</span>}
+				{scorecard!==null && isCalled && <span className="text-gray-800">C: {scorecard?.handsCalled[idx]}, W: {scorecard?.handsWon[idx]}</span>}
 			</div>
 		</div>
 	);
