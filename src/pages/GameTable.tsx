@@ -7,6 +7,7 @@ import Table from '../components/Table';
 import CallHands from '../components/CallHands';
 import './GameTable.css';
 import Scorecard from '../components/Scorcard';
+import Popup from 'reactjs-popup';
 
 enum GameStatus {
   WAITING_FOR_PLAYERS = 'WAITING_FOR_PLAYERS',
@@ -68,6 +69,20 @@ const GameTable: React.FC = () => {
     }
   }, [shouldRedirect, navigate, gameId]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setGame((prevGame:any) => {
+        return { ...prevGame, windowWidth: window.innerWidth, windowHeight: window.innerHeight };
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className="relative w-full h-screen flex justify-center items-center flex-col">
       <div className="absolute top-0 right-0 m-4">{sessionStorage.getItem('playerName')}!</div>
@@ -82,9 +97,19 @@ const GameTable: React.FC = () => {
         )}
       </div>
       <div className='mt-2'> 
-      {Cards(game)}
-      {game?.gameStatus === GameStatus.CALLING_HANDS && game?.players[game?.chance]?.sessionId === sessionStorage.getItem('sessionId') && <CallHands/>}
-      {game?.gameStatus != GameStatus.WAITING_FOR_PLAYERS && Scorecard(game)}
+        {Cards(game)}
+        {game?.gameStatus === GameStatus.CALLING_HANDS && game?.players[game?.chance]?.sessionId === sessionStorage.getItem('sessionId') && <CallHands/>}
+        {game?.gameStatus !== GameStatus.WAITING_FOR_PLAYERS && (
+          <div>
+            {
+              <Popup trigger=
+                {<button> Scorecard </button>}
+                  position="right center">
+                      {Scorecard(game)}
+              </Popup>
+            }
+          </div>
+        )}
       </div>
     </div>
   );
