@@ -88,7 +88,7 @@ const GameTable: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-screen flex justify-center items-center flex-col" style={{ position: 'relative' }}>
         <div style={{
             backgroundImage: "url(/wall.png)",
-            opacity: 0.5,
+            opacity: 0.2,
             position: 'absolute',
             top: 0,
             left: 0,
@@ -98,7 +98,6 @@ const GameTable: React.FC = () => {
         }}></div>
       </div>
       <div className="absolute top-0 left-0 w-full h-screen flex justify-center items-center flex-col">
-        <div className="absolute top-0 right-0 m-4">{sessionStorage.getItem('playerName')}!</div>
         <div>{getMessage(game)}</div>
         {Table(game)}
         <div>
